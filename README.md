@@ -1,4 +1,9 @@
-1. composer.json
+安装
+~~~
+./sms-extend/install.sh
+~~~
+
+1. 修改composer.json
 ~~~
 "autoload": {
     "classmap":[
@@ -7,7 +12,11 @@
 },
 ~~~
 
-2. config
+~~~
+composer dump-autoload
+~~~
+
+2. 配置config
 ~~~
 //阿里云短信服务
 'alisms_key' => '',
@@ -16,7 +25,7 @@
 'alisms_sign' => '',
 ~~~
 
-3. function
+3. 使用 function
 ~~~
 /**
 *	发送验证码
@@ -29,11 +38,11 @@ public function sendMsgCode(Request $request)
 	try {
 		$msg = rand(100000, 999999);
 		$data = array(
-            'keyId' => Config::get('this.alisms_key'),
-            'keySecret' => Config::get('this.alisms_secret'),
+            'keyId' => Config::get('alisms_key'),
+            'keySecret' => Config::get('alisms_secret'),
             'phone' => $phone,
-            'sign' => Config::get('this.alisms_sign'),
-            'snscode' => Config::get('this.alisms_snscode')
+            'sign' => Config::get('alisms_sign'),
+            'snscode' => Config::get('alisms_snscode')
         );
     	$alisms = AliSms::sendSms($data, ['code' => $msg]);	
 	} catch (Exception $e) {
